@@ -19,9 +19,6 @@ export default function SummaryCards({ totalCabins, totalHigh, totalMedium } : S
               {totalCabins}
             </p>
           </div>
-          <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-            <Home color="blue" />
-          </div>
         </div>
       </div>
 

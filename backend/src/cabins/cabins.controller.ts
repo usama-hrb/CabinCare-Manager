@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Delete } from '@nestjs/common';
 import { CreateCabinDto } from './dto/create-cabin.dto';
 import { CabinsService } from './cabins.service';
 
@@ -23,5 +23,11 @@ export class CabinsController {
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.cabinsService.findOne(+id);
+  }
+
+  // DELETE: http://localhost:3000/cabins/:id
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.cabinsService.remove(+id);
   }
 }

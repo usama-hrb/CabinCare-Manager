@@ -1,8 +1,11 @@
+export type Priority = "HIGH" | "MEDIUM" | "LOW";
+export type Status = "PENDING" | "IN_PROGRESS" | "COMPLETE";
+
 export type Task = {
   id: number;
   description: string;
-  priority: "HIGH" | "MEDIUM" | "LOW";
-  status: "PENDING" | "IN_PROGRESS" | "COMPLETE";
+  priority: Priority;
+  status: Status;
   cabinId: number;
 };
 
@@ -13,4 +16,19 @@ export type Cabin = {
   description: string | null;
   tasks: Task[];
 };
+
+export type NewTaskInput = {
+  description: string;
+  priority: Priority;
+  status: Status;
+  cabinId: number;
+};
+
+export type UpdateTaskInput = {
+  id: number;
+  description?: string;
+  priority?: Priority;
+  status?: Status;
+};
+
 

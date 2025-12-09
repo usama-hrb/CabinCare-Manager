@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Cabin } from 'src/cabins/entity/cabin.entity';
 
 export enum Priority {
@@ -34,7 +40,10 @@ export class MaintenanceTask {
   })
   status: Status;
 
-  @ManyToOne(() => Cabin, (cabin) => cabin.tasks)
+  @ManyToOne(() => Cabin, (cabin) => cabin.tasks, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'cabinId' })
   cabin: Cabin;
 
   @Column()

@@ -5,14 +5,14 @@ import DashboardContent from "./components/DashboardContent";
 
 function App() {
   const [showNewCabinModal, setShowNewCabinModal] = useState(false);
-  const [selectedCabin, setSelectedCabin] = useState(null);
+  const [selectedCabin, setSelectedCabin] = useState<number | null>(null);
 
   return (
     <div className="h-screen flex flex-col">
       <Header />
       <DashboardContent
         onNewCabin={() => setShowNewCabinModal(true)}
-        onSelectCabin={() => setSelectedCabin}
+        onSelectCabin={(id) => setSelectedCabin(id)}
         selectedCabin={selectedCabin}
         showNewCabinModal={showNewCabinModal}
         onCloseNewCabinModal={() => setShowNewCabinModal(false)}

@@ -4,12 +4,18 @@ import { api } from "../lib/api";
 import CabinGrid from "./CabinGrid";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
-import type { Cabin, Task } from "src/types/cabin";
+import type {
+  Cabin,
+  Task,
+  NewTaskInput,
+  UpdateTaskInput,
+} from "src/types/cabin";
 import NewCabinModal from "./NewCabinModal";
+import CabinDetailsPanel from "./CabinDetailsPanel";
 
 type DashboardContentProps = {
   onNewCabin: () => void;
-  onSelectCabin: (id: number) => void;
+  onSelectCabin: (id: number | null) => void;
   selectedCabin: number | null;
   showNewCabinModal: boolean;
   onCloseNewCabinModal: () => void;
@@ -74,14 +80,80 @@ export default function DashboardContent({
       const created = res.data;
 
       const safeCabinWithTasks: Cabin = {
-        ...created, tasks: created.tasks ?? [],
+        ...created,
+        tasks: created.tasks ?? [],
       };
-      setCabins((prev) => [...prev,safeCabinWithTasks]);
+      setCabins((prev) => [...prev, safeCabinWithTasks]);
       onCloseNewCabinModal();
     } catch (err) {
       console.error("Failed to create cabin: ", err);
     }
   };
+
+  const handleAddTask = async (task: NewTaskInput) => {
+    try {
+      const res = await api.post<Task>("/tasks", task);
+      const created = res.data;
+
+      setCabins((prev) =>
+        prev.map((c) =>
+          c.id === created.cabinId ? { ...c, tasks: [...c.tasks, created] } : c
+        )
+      );
+    } catch (err) {
+      console.error("Failed to add task: ", err);
+    }
+  };
+
+  const handleUpdateTask = async (update: UpdateTaskInput) => {
+    try {
+      const { id, ...data } = update;
+
+      const res = await api.patch<Task>(`/tasks/${id}`, data);
+      const updated = res.data;
+
+      setCabins((prev) =>
+        prev.map((cabin) =>
+          cabin.id === updated.cabinId
+            ? {
+                ...cabin,
+                tasks: cabin.tasks.map((t) =>
+                  t.id === updated.id ? updated : t
+                ),
+              }
+            : cabin
+        )
+      );
+    } catch (err) {
+      console.error("Failed to update task: ", err);
+    }
+  };
+
+  const handleDeleteTask = async (id: number) => {
+    try {
+      await api.delete(`/tasks/${id}`);
+
+      setCabins((prev) =>
+        prev.map((cabin) => ({
+          ...cabin,
+          tasks: cabin.tasks.filter((t) => t.id !== id),
+        }))
+      );
+    } catch (err) {
+      console.error("Failed to delete task: ", err);
+    }
+  };
+
+  const handleDeleteCabin = async (id: number) => {
+    try {
+      await api.delete(`/cabins/${id}`);
+      setCabins((prev) => prev.filter((c) => c.id !== id));
+    } catch (err) {
+      console.error("Failed to delete cabin: ", err);
+    }
+  };
+
+  const selectedCabinObj = cabins.find((c) => c.id === selectedCabin) ?? null;
 
   return (
     <main className="flex-1 overflow-auto">
@@ -105,6 +177,14 @@ export default function DashboardContent({
         open={showNewCabinModal}
         onClose={onCloseNewCabinModal}
         onSubmit={handleAddCabin}
+      />
+      <CabinDetailsPanel
+        cabin={selectedCabinObj}
+        onClose={() => onSelectCabin(null)}
+        onAddTask={handleAddTask}
+        onUpdateTask={handleUpdateTask}
+        onDeleteTask={handleDeleteTask}
+        onDeleteCabin={handleDeleteCabin}
       />
     </main>
   );

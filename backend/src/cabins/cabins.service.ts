@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cabin } from './entity/cabin.entity';
 import { Repository } from 'typeorm';
@@ -26,5 +26,15 @@ export class CabinsService {
       where: { id },
       relations: ['tasks'],
     });
+  }
+
+  async remove(id: number) {
+    const cabin = await this.cabinsRepo.findOne({ where: { id } });
+    if (!cabin) {
+      throw new NotFoundException(`Cabin with id ${id} not found`);
+    }
+
+    await this.cabinsRepo.remove(cabin);
+    return { deleted: true };
   }
 }
