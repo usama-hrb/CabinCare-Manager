@@ -188,12 +188,7 @@ export default function CabinDetailsPanel({
 
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <button
-                                type="button"
-                                className="text-xs px-2 py-1 rounded border border-destructive/40 text-destructive hover:bg-destructive/10"
-                              >
-                                Delete
-                              </button>
+                              <Button className="cursor-pointer" size='sm' variant='destructive'>Delete</Button>
                             </AlertDialogTrigger>
 
                             <AlertDialogContent>
@@ -294,13 +289,7 @@ export default function CabinDetailsPanel({
                   </select>
                 </div>
               </div>
-
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-              >
-                Add Task
-              </button>
+              <Button type="submit" className="w-full" >Add Task</Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button className="w-full" variant="destructive">

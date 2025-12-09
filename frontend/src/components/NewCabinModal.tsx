@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 type NewCabinModalProps = {
   open: boolean;
@@ -118,19 +119,8 @@ export default function NewCabinModal({
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="flex-1 px-4 py-2 border border-border rounded-lg text-foreground font-medium hover:bg-muted transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-            >
-              Create Cabin
-            </button>
+            <Button className="flex-1" onClick={handleClose} variant='outline'>Cancel</Button>
+            <Button className="flex-1" onClick={handleClose} type="submit">Create Cabin</Button>
           </div>
         </form>
       </div>
