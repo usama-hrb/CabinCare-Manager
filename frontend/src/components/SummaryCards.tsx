@@ -1,12 +1,14 @@
-import { Home } from "lucide-react";
-
 type SummaryCardsProps = {
-  totalCabins: number
-  totalHigh: number
-  totalMedium: number
-}
+  totalCabins: number;
+  totalHigh: number;
+  totalMedium: number;
+};
 
-export default function SummaryCards({ totalCabins, totalHigh, totalMedium } : SummaryCardsProps) {
+export default function SummaryCards({
+  totalCabins,
+  totalHigh,
+  totalMedium,
+}: SummaryCardsProps) {
   return (
     <div className="grid grid-cols-3 gap-6">
       <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
