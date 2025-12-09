@@ -192,3 +192,14 @@ Delete a task
 ### Task management UX:
 
 - Task status can be changed inline via a dropdown, and destructive actions like delete are protected with a confirmation dialog (AlertDialog) and followed by a toast (Sonner), which provides a smoother admin-dashboard experience.
+
+## Commit history 
+
+```sql
+767d67c (HEAD -> main, origin/main) Write a full Documentation for the project
+60364a5 add docker setup and script for running backend with one command
+dc24579 Add the Cabin details and add New Tasks component, and make the task changble and can delete the, add delete cabin button too
+9bb9c59 Implement the dashboard and add cabin frontend, still need more enhancement
+50fd00e Add Swagger API Documentation
+24eef55 Implement all the CabinCare backend endpoints
+```
