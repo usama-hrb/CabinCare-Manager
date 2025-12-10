@@ -10,7 +10,7 @@ export default function SummaryCards({
   totalMedium,
 }: SummaryCardsProps) {
   return (
-    <div className="grid grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-start justify-between">
           <div>
